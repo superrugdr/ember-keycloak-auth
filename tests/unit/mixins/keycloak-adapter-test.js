@@ -3,8 +3,8 @@ import { setupTest } from 'ember-qunit';
 import { run } from '@ember/runloop';
 
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { login, setupKeycloakSession } from '@jftechnology/ember-keycloak-auth/test-support';
-import { setupKeycloakMirageAuth } from '@jftechnology/ember-keycloak-auth/test-support/mirage';
+import { login, setupKeycloakSession } from '@superrugdr/ember-keycloak-auth/test-support';
+import { setupKeycloakMirageAuth } from '@superrugdr/ember-keycloak-auth/test-support/mirage';
 
 module('Unit | Mixins | keycloak adapter', function(hooks) {
 

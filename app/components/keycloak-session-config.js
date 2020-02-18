@@ -1,1 +1,1 @@
-export { default } from '@jftechnology/ember-keycloak-auth/components/keycloak-session-config';
+export { default } from '@superrugdr/ember-keycloak-auth/components/keycloak-session-config';

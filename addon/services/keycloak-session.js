@@ -58,48 +58,6 @@ export default class KeycloakSessionService extends Service {
    */
   timestamp = null;
 
-  /**
-   * Keycloak.init() option. Should be one of 'check-sso' or 'login-required'. Default 'login-required'.
-   * See http://www.keycloak.org/documentation.html for complete details.
-   *
-   * @property onLoad
-   * @type {String}
-   */
-  onLoad = 'login-required';
-
-  /**
-   * Keycloak.init() option. Should be one of 'query' or 'fragment'. Default 'fragment'.
-   * See http://www.keycloak.org/documentation.html for complete details.
-   *
-   * @property responseMode
-   * @type {String}
-   */
-  responseMode = 'fragment';
-
-  /**
-   * Keycloak.init() option. Should be one of 'standard', 'implicit' or 'hybrid'. Default 'standard'.
-   * See http://www.keycloak.org/documentation.html for complete details.
-   *
-   * @property flow
-   * @type {String}
-   */
-  flow = 'standard';
-
-  /**
-   * Keycloak.init() option. Default 'false'.
-   *
-   * @property checkLoginIframe
-   * @type {boolean}
-   */
-  checkLoginIframe = false;
-
-  /**
-   * Keycloak.init() option. Default '5'.
-   *
-   * @property checkLoginIframeInterval
-   * @type {number}
-   */
-  checkLoginIframeInterval = 5;
 
   /**
    * Keycloak.login() option.
@@ -222,12 +180,25 @@ export default class KeycloakSessionService extends Service {
    * @param {*[]} parameters Constructor parameters for Keycloak object - see Keycloak JS adapter docs for details
    */
   installKeycloak(parameters) {
-
+    let service = this;
     console.debug('Keycloak session :: keycloak');
-
-    let keycloak = new Keycloak(parameters);
-
-    this._installKeycloak(keycloak);
+    return new Promise((resolve,reject) =>{
+      if(typeof(Keycloak) === "undefined")
+      {
+        let baseUrl = parameters.url;
+        if(baseUrl || baseUrl === "") reject();
+        let keycloakLib = document.createElement('script');
+        if(baseUrl[baseUrl.length-1] !== "/")
+          baseUrl = baseUrl + "/";
+        keycloakLib.src =  baseUrl + 'js/keycloak.js';
+        document.head.appendChild(keycloakLib);
+      }
+      resolve();
+    }).then(() => {
+      let keycloak = new Keycloak(parameters);
+      let installKeyBind = this._installKeycloak.bind(service);
+      return installKeyBind(keycloak);
+    });
   }
 
   _installKeycloak(keycloak) {
@@ -240,8 +211,8 @@ export default class KeycloakSessionService extends Service {
     keycloak.onTokenExpired = this.onTokenExpired;
     keycloak.onAuthLogout = this.onAuthLogout;
 
-    set(this, '_keycloak', keycloak);
-    set(this, 'timestamp', new Date());
+    this.set('_keycloak', keycloak);
+    this.set('timestamp', new Date());
 
     console.debug('Keycloak session :: install :: completed');
   }
@@ -249,13 +220,11 @@ export default class KeycloakSessionService extends Service {
   /**
    * @method initKeycloak
    */
-  initKeycloak() {
+  initKeycloak(options) {
 
     console.debug('Keycloak session :: init');
-
-    let options = this.getProperties('onLoad', 'responseMode', 'checkLoginIframe', 'checkLoginIframeInterval', 'flow');
-
     if (this.keycloak) {
+      console.debug("Keycloak library not found :: injecting library from auth Url");
       return new Promise((resolve, reject) => {
         this.keycloak.init(options)
           .success(authenticated => {

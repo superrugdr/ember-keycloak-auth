@@ -22,6 +22,18 @@
             <label>Client Id</label>
             {{input value=clientId class="form-control" placeholder="my-client-id"}}
           </div>
+          <div class="form-group">
+            <label>Flow</label>
+            {{input value=flow class="form-control" placeholder="standard"}}
+          </div>
+          <div class="form-group">
+            <label>Check login Iframe</label>
+            {{input value=checkLoginIframe class="form-control" placeholder="true"}}
+          </div>
+          <div class="form-group">
+            <label>On Load</label>
+            {{input value=onLoad class="form-control" placeholder="login-required"}}
+          </div>
         </div>
         <div class="card-footer">
           <button {{action "initKeycloak"}} class="btn btn-block btn-primary">Store keycloak parameters</button>

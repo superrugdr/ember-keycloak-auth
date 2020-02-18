@@ -1,7 +1,7 @@
 {
-  "name": "@jftechnology/ember-keycloak-auth",
+  "name": "@superrugdr/ember-keycloak-auth",
   "version": "0.10.3",
-  "description": "Keycloak JS Adapter as an Ember service and utilities",
+  "description": "Keycloak JS Adapter as an Ember service and utilities that let the library and settings to the users.",
   "keywords": [
     "authentication",
     "keycloak",
@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/JFTechnology/ember-keycloak-auth"
+    "url": "https://github.com/superrugdr/ember-keycloak-auth"
   },
   "license": "MIT",
   "author": "stephen.flynn@jftechnology.com",
@@ -81,5 +81,5 @@
   "ember-addon": {
     "configPath": "tests/dummy/config"
   },
-  "homepage": "https://JFTechnology.github.io/ember-keycloak-auth"
+  "homepage": "https://github.com/superrugdr/ember-keycloak-auth"
 }

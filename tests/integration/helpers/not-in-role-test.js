@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-import { login, setupKeycloakSession } from '@jftechnology/ember-keycloak-auth/test-support';
+import { login, setupKeycloakSession } from '@superrugdr/ember-keycloak-auth/test-support';
 
 module('Integration | Helper | not-in-role', function(hooks) {
 

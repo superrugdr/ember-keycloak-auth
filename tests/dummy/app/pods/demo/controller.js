@@ -38,7 +38,7 @@ export default class DemoController extends Controller {
   }
 
   @action
-  initKeycloak() {
+  async initKeycloak() {
 
     let session = this.get('keycloakSession');
     let cookies = this.get('cookies');
@@ -46,6 +46,9 @@ export default class DemoController extends Controller {
     let url = this.get('url');
     let realm = this.get('realm');
     let clientId = this.get('clientId');
+    let flow = this.get('flow') || 'implicit';
+    let checkLoginIframe = this.get('checkLoginIframe') || "true";
+    let onLoad = this.get('onLoad') || "login-required";
 
     // save details as cookies for subsequent initializations
     cookies.write('keycloak-url', url);
@@ -60,8 +63,15 @@ export default class DemoController extends Controller {
         clientId,
       };
 
-      session.installKeycloak(options);
-      session.initKeycloak();
+      await session.installKeycloak(options);
+
+      let initOptions = {
+        flow,
+        checkLoginIframe :  checkLoginIframe === "true",
+        onLoad
+      };
+
+      session.initKeycloak(initOptions);
 
     } else {
 

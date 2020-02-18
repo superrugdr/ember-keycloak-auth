@@ -5,7 +5,6 @@ module.exports = {
 
   included: function (app) {
     this._super.included(app);
-    app.import('node_modules/keycloak-js/dist/keycloak.js');
   }
 
 };

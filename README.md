@@ -4,7 +4,7 @@
 [![Dependency Status](https://david-dm.org/JFTechnology/ember-keycloak-auth.svg)](https://david-dm.org/JFTechnology/ember-keycloak-auth)
 [![devDependency Status](https://david-dm.org/JFTechnology/ember-keycloak-auth/dev-status.svg)](https://david-dm.org/JFTechnology/ember-keycloak-auth#info=devDependencies)
 
-@jftechnology/ember-keycloak-auth
+ember-keycloak-auth
 ==============================================================================
 
 This README outlines the details of collaborating on this Ember addon.
@@ -23,26 +23,6 @@ See [addon docs](https://jftechnology.github.io/ember-keycloak-auth) for full AP
  are made to a Keycloak secured backend via the Ember data framework.
  * Small utility components for displaying user login state.
 
-## Ember version
-Versions 0.9+ of this library require the LTS version 3.8 of Ember or greater. Versions 0.9+ uses native classes 
-and Stage 1 decorators and requires ember-decorators-polyfill for environments before Ember 3.10. 
-
-If you are using a version of Ember older than 3.8, please use ember-keycloak-auth version 0.3.0 (note - no @jftechnology scope).
-
-Compatibility
-------------------------------------------------------------------------------
-
-## @jftechnology/ember-keycloak-auth v0.9+
-* Ember.js (LTS) v3.8 or above (requires ember-decorators-polyfill for Ember versions < 3.10)
-* Ember CLI (LTS) v3.8 or above
-
-### Breaking changes v0.9+
-* Package name now scoped (ember-keycloak-auth:0.3.x -> @jftechnology/ember-keycloak-auth:0.9.x)
-* Keycloak 'checkLoginIframe' option now defaults to false
-
-## ember-keycloak-auth v0.3
-* Ember.js v2.18 or above
-* Ember CLI v2.18 or above
 
 Installation
 ------------------------------------------------------------------------------
@@ -50,7 +30,7 @@ Installation
 Run:
 
 ```
-ember install @jftechnology/ember-keycloak-auth
+ember install ember-keycloak-auth
 ```
 
 For Ember 3.8 / 3.9 you need to install the decorator polyfill as well...
@@ -63,7 +43,24 @@ ember install ember-decorators-polyfill
 Usage
 ------------------------------------------------------------------------------
 
-See [addon docs](https://jftechnology.github.io/ember-keycloak-auth) for usage and API details.
+Add a line as such in ember-cli-build.js
+`app.import("https://your-keycloak-server/auth/js/keycloak.js");`
+
+
+Then in Application Route 
+  inject keycloakSession service
+
+call installKeycloak with keycloak parameters in the init function
+
+and in overwrite the beforeModel hook(),
+  `beforeModel() {
+       return this.keycloakSession.initKeycloak();
+   }`
+
+the application adapter can extend `KeycloakAdapterMixin`
+to automatically update the authentication headers.
+
+
 
 ## Running
 

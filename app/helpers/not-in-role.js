@@ -1,1 +1,1 @@
-export { default, hasRole } from '@jftechnology/ember-keycloak-auth/helpers/not-in-role';
+export { default, hasRole } from '@superrugdr/ember-keycloak-auth/helpers/not-in-role';
