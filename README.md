@@ -43,8 +43,11 @@ ember install ember-decorators-polyfill
 Usage
 ------------------------------------------------------------------------------
 
-Add a line as such in ember-cli-build.js
-`app.import("https://your-keycloak-server/auth/js/keycloak.js");`
+
+(Optional) Add a line as such in ember-cli-build.js 
+`app.import("https://your-keycloak-server/auth/js/keycloak.js");`.
+this will compile the keycloak library with your app, 
+the other option is to not do it and accept that the service will inject the most up to date version from the auth server.
 
 
 Then in Application Route 
